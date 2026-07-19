@@ -10,13 +10,13 @@ Bu belge, "Kriptografi Terminali" projesinin teknik mimarisini kavramak, kurulum
   1. **Saf Kütüphanesiz (`kutuphanesiz_versiyon.py`)**: Kriptografinin altında yatan for döngülerini, matris çarpımlarını ve modüler toplamayı en ilkel haliyle kavradığımızı kanıtlar.
   2. **NumPy Kütüphaneli (`kutuphaneli_versiyon.py`)**: Gerçek dünya projelerinde bu işlemlerin `np.dot` ile nasıl vektörel ve çok daha hızlı yapıldığını gösterir.
 
-## 3. Kurulum ve Çalıştırma Adımları (Demo İçin)
+## 2. Kurulum ve Çalıştırma Adımları (Demo İçin)
 Projeyi sunacağınız bilgisayarda şunları yapmanız yeterlidir:
 1. `hill-vernam-cipher` klasörünü açın.
 2. `çalıştır.bat` dosyasına çift tıklayın. (Bu dosya eksik modülleri `pip install flask numpy` ile kurar ve `app.py`'yi başlatır).
 3. Tarayıcıyı açın ve adres çubuğuna `http://localhost:5000` yazın.
 
-## 4. Sunum Sırasında Uygulanacak Demo Senaryosu
+## 3. Sunum Sırasında Uygulanacak Demo Senaryosu
 Sunum yaparken izleyiciyi etkilemek için şu adımları izleyebilirsiniz:
 1. **Giriş:** "Saf Çekirdek" sekmesinde `help` yazıp enter'a basın. Sistem, yardım menüsünü ekrana basacaktır. Projenin ne yaptığını bu menü üzerinden okuyarak anlatabilirsiniz.
 2. **Çift Çekirdek Gösterisi:** "ÇİFT ÇEKİRDEK" sekmesi ile iki ayrı algoritmayı aynı anda test edebilirsiniz.
