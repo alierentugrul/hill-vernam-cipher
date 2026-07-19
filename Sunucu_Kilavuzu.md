@@ -1,7 +1,5 @@
 # 🎤 Proje Sunucusu ve Geliştirici Kılavuzu
 
-Bu belge, "Kriptografi Terminali" projesinin teknik mimarisini kavramak, kurulumunu yapmak ve projeyi başkalarına sunarken sorulabilecek sorulara hazırlıklı olmak için hazırlanmıştır.
-
 ## 1. Teknik Kararlar ve Altyapı
 - **Neden 79 Karakterlik Alfabe?**
   Hill şifrelemesi 2x2 matrislerle çalışır. Ancak şifrenin geri çözülebilmesi için determinantın alfabe uzunluğuna göre modüler tersinin alınabilmesi şarttır. Eğer alfabe 29 (sadece Türkçe harfler) veya 26 olsaydı, birçok matris geçersiz olurdu. Bu projede rakamlar, simgeler, ingilizce türkçe harfler kullanılmıstır. Ve 79 sayısına ulaşılmıştır. 79 asal bir sayı olduğu için Asal modüller matematiksel olarak her zaman tersine çevrilebilirdir. Bu sayede hata riski %0'a indirilmiştir.
