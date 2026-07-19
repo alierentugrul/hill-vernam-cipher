@@ -1,0 +1,327 @@
+:root {
+    --bg-base: #030711;
+    --cyan-glow: #00f0ff;
+    --cyan-dim: rgba(0, 240, 255, 0.15);
+    --accent-glow: #ff0055;
+    --terminal-bg: rgba(5, 10, 20, 0.65);
+    --glass-border: rgba(0, 240, 255, 0.25);
+    --text-primary: #e0f8f8;
+    --text-muted: #4b6a7c;
+    --font-heading: 'Orbitron', sans-serif;
+    --font-mono: 'Share Tech Mono', monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: radial-gradient(circle at 50% 50%, #0d1b2a 0%, var(--bg-base) 100%);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CRT Effects */
+.crt-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.scanlines {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 0.4;
+    animation: scroll 8s linear infinite;
+    pointer-events: none;
+    z-index: 99;
+}
+
+@keyframes scroll {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+}
+
+/* App Container */
+.app-container {
+    width: 90%;
+    max-width: 1100px;
+    height: 92vh;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    animation: bootup 1.5s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+    transition: max-width 0.4s ease, width 0.4s ease;
+}
+
+.app-container.wide-mode {
+    width: 96%;
+    max-width: 1600px;
+}
+
+@keyframes bootup {
+    0% { opacity: 0; transform: scale(0.95) translateY(20px); filter: blur(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+}
+
+/* Header & Nav */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px 0;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--cyan-glow);
+    text-shadow: 0 0 10px var(--cyan-glow);
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+.logo span {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.category-bar {
+    display: flex;
+    gap: 15px;
+}
+
+.tab-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+    font-family: var(--font-heading);
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tab-btn:hover {
+    color: #ffffff;
+    border-color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+.tab-btn.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    border-color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+}
+
+/* Kaynak Kodlar Butonu Özel Mavi */
+.tab-btn[data-mode="kaynak"] {
+    border-color: var(--cyan-glow);
+    color: var(--cyan-glow);
+}
+
+.tab-btn[data-mode="kaynak"]:hover {
+    background: rgba(0, 243, 255, 0.2);
+    color: var(--cyan-glow);
+    border-color: var(--cyan-glow);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.6);
+}
+
+.tab-btn[data-mode="kaynak"].active {
+    background: rgba(0, 243, 255, 0.2);
+    color: var(--cyan-glow);
+    border-color: var(--cyan-glow);
+    box-shadow: 0 0 15px rgba(0, 243, 255, 0.6);
+}
+
+.tab-btn.outline {
+    border-color: var(--accent-glow);
+    color: var(--accent-glow);
+}
+
+.tab-btn.outline:hover {
+    background: rgba(255, 0, 85, 0.15);
+    box-shadow: 0 0 15px rgba(255, 0, 85, 0.3);
+}
+
+/* Terminal Glassmorphism */
+.terminal-container {
+    flex-grow: 1;
+    background: var(--terminal-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5), inset 0 0 20px rgba(0, 240, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+.terminal-header {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.terminal-dots {
+    display: flex;
+    gap: 8px;
+}
+
+.terminal-dots span {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: #555;
+}
+.terminal-dots span:nth-child(1) { background: #ff5f56; }
+.terminal-dots span:nth-child(2) { background: #ffbd2e; }
+.terminal-dots span:nth-child(3) { background: #27c93f; }
+
+.terminal-title {
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* Terminal Body */
+.terminal-body-wrapper {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.terminal-body {
+    flex: 1;
+    padding: 20px;
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--cyan-glow) transparent;
+}
+
+#term-ikisi-right, #term-kaynak-right {
+    border-left: 1px solid var(--glass-border);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Prism.js Overrides for Terminal */
+pre[class*="language-"] {
+    background: rgba(0, 0, 0, 0.3) !important;
+    border-radius: 5px;
+    padding: 15px !important;
+    margin-top: 10px !important;
+    text-shadow: none !important;
+    white-space: pre !important;
+    width: max-content;
+}
+code[class*="language-"] {
+    font-family: var(--font-mono) !important;
+    font-size: 1rem !important;
+    text-shadow: none !important;
+}
+
+/* Yorum satırlarını belirginleştir */
+.token.comment {
+    color: #79c0ff !important;
+    font-style: italic !important;
+    opacity: 0.9;
+}
+
+.terminal-body::-webkit-scrollbar {
+    width: 8px;
+}
+.terminal-body::-webkit-scrollbar-thumb {
+    background: var(--cyan-glow);
+    border-radius: 4px;
+}
+
+.output-line {
+    margin-bottom: 8px;
+    line-height: 1.5;
+    font-size: 1.1rem;
+    text-shadow: 0 0 5px rgba(224, 248, 248, 0.3);
+    overflow-wrap: anywhere;
+    word-break: normal;
+    white-space: pre-wrap;
+}
+
+.system-msg {
+    color: #ffd700;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+.error-msg {
+    color: #ff0055;
+    text-shadow: 0 0 5px rgba(255, 0, 85, 0.5);
+}
+
+.header-msg {
+    color: var(--cyan-glow);
+    text-shadow: 0 0 8px var(--cyan-glow);
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+/* Input Area */
+.input-area {
+    display: flex;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid var(--glass-border);
+}
+
+.prompt {
+    color: #27c93f;
+    margin-right: 15px;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+#cli-input {
+    flex-grow: 1;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    outline: none;
+    text-shadow: 0 0 5px rgba(224, 248, 248, 0.3);
+}
+
+#cli-input::placeholder {
+    color: var(--text-muted);
+}
+
+.action-btn {
+    background: transparent;
+    border: 1px solid var(--accent-glow);
+    color: var(--accent-glow);
+    font-family: var(--font-mono);
+    padding: 0 15px;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+}
+.action-btn:hover {
+    background: rgba(255, 0, 85, 0.2);
+    box-shadow: 0 0 10px rgba(255, 0, 85, 0.4);
+}
